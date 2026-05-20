@@ -71,11 +71,12 @@ else
          "remediate: change UID on the duplicate account"
 fi
 
-# 6.2.6 root PATH sanity
+# 6.2.6 root PATH sanity. Wrapping with ':' on both sides means any '.' element
+# always appears as ':.:'; we don't need a separate trailing-dot pattern.
 case ":$PATH:" in
-    *::*)        fail "6.2.6 root PATH contains an empty element" ;;
-    *:.:*|*:.)   fail "6.2.6 root PATH contains '.'" ;;
-    *)           pass "6.2.6 root PATH has no empty or '.' element" ;;
+    *::*)    fail "6.2.6 root PATH contains an empty element" ;;
+    *:.:*)   fail "6.2.6 root PATH contains '.'" ;;
+    *)       pass "6.2.6 root PATH has no empty or '.' element" ;;
 esac
 
 # 6.2.7-6.2.9 home directories

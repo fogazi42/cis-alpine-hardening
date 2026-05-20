@@ -13,7 +13,7 @@
 #
 set -eu
 
-SELF_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+SELF_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 # shellcheck source=lib/common.sh
 . "$SELF_DIR/lib/common.sh"
 

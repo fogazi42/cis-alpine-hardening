@@ -39,7 +39,8 @@ if apk info -e rsyslog >/dev/null 2>&1; then
              "remediate: echo '\$FileCreateMode 0640' >> /etc/rsyslog.conf"
     fi
     if grep -Eq '^\*\.\*[[:space:]]+@@?[A-Za-z0-9.:_-]+' /etc/rsyslog.conf 2>/dev/null ||
-       ls /etc/rsyslog.d/*.conf 2>/dev/null | xargs -r grep -Eq '^\*\.\*[[:space:]]+@@?'; then
+       find /etc/rsyslog.d -maxdepth 1 -type f -name '*.conf' -print0 2>/dev/null \
+         | xargs -0 -r grep -Eq '^\*\.\*[[:space:]]+@@?'; then
         pass "4.2.1.5 rsyslog ships logs to a remote host"
     else
         fail "4.2.1.5 rsyslog has no remote log target" \
